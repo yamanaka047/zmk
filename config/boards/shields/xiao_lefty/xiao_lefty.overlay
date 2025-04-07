@@ -1,0 +1,42 @@
+/ {
+    keymap {
+        compatible = "zmk,keymap";
+        layout = [ 
+            &kp Q &kp W &kp E &kp R &kp T
+            &kp A &kp S &kp D &kp F &kp G
+            &kp Z &kp X &kp C &kp V &kp B
+            &kp 1 &kp 2 &kp 3 &kp 4 &kp 5
+            &kp ESC &kp TAB &kp SPACE &kp ENTER &trans
+        ];
+    };
+};
+
+&kscan0 {
+    row-gpios = <&gpio0 3 GPIO_ACTIVE_LOW>,
+                <&gpio0 4 GPIO_ACTIVE_LOW>,
+                <&gpio0 28 GPIO_ACTIVE_LOW>,
+                <&gpio0 29 GPIO_ACTIVE_LOW>,
+                <&gpio0 7 GPIO_ACTIVE_LOW>;
+
+    col-gpios = <&gpio0 11 GPIO_ACTIVE_LOW>,
+                <&gpio0 5 GPIO_ACTIVE_LOW>,
+                <&gpio0 6 GPIO_ACTIVE_LOW>,
+                <&gpio1 0 GPIO_ACTIVE_LOW>,
+                <&gpio0 10 GPIO_ACTIVE_LOW>;
+};
+
+&encoder0 {
+    compatible = "zmk,behavior-encoder";
+    label = "VolumeEncoder";
+    a-gpios = <&gpio1 1 (GPIO_PULL_UP | GPIO_ACTIVE_LOW)>;
+    b-gpios = <&gpio1 2 (GPIO_PULL_UP | GPIO_ACTIVE_LOW)>;
+    steps = <4>;
+};
+
+&behavior_encoder_cw {
+    binding = <&kp VOL_UP>;
+};
+
+&behavior_encoder_ccw {
+    binding = <&kp VOL_DN>;
+};
